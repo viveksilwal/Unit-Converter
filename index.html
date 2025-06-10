@@ -1,51 +1,91 @@
-<div>
-  <h3>Inch ↔ Millimeter Converter</h3>
-  <div style="display: flex; gap: 10px;">
-    <div>
-      <input type="number" id="inch" placeholder="Enter inches" oninput="convertInchMM('inch')">
-      <div>inches</div>
-    </div>
-    <div>
-      <input type="number" id="mm" placeholder="Enter millimeters" oninput="convertInchMM('mm')">
-      <div>mm</div>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Unit Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .converter {
+      margin-bottom: 40px;
+    }
+    .input-pair {
+      display: flex;
+      gap: 20px;
+      align-items: flex-end;
+      margin-top: 10px;
+    }
+    .input-box {
+      display: flex;
+      flex-direction: column;
+    }
+    input {
+      width: 120px;
+      padding: 8px;
+      font-size: 16px;
+    }
+    .unit-label {
+      font-size: 14px;
+      margin-top: 4px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Inch to Millimeter Converter -->
+  <div class="converter">
+    <h2>Inch to Millimeter Converter</h2>
+    <div class="input-pair">
+      <div class="input-box">
+        <input type="number" id="inch" placeholder="Inches" oninput="inchToMm()">
+        <div class="unit-label">Inches</div>
+      </div>
+      <div class="input-box">
+        <input type="number" id="mm" placeholder="Millimeters" oninput="mmToInch()">
+        <div class="unit-label">Millimeters</div>
+      </div>
     </div>
   </div>
-</div>
 
-<br>
-
-<div>
-  <h3>PSIA ↔ Bar Converter</h3>
-  <div style="display: flex; gap: 10px;">
-    <div>
-      <input type="number" id="psia" placeholder="Enter PSIA" oninput="convertPressure('psia')">
-      <div>PSIA</div>
-    </div>
-    <div>
-      <input type="number" id="bar" placeholder="Enter Bar" oninput="convertPressure('bar')">
-      <div>bar</div>
+  <!-- PSIA to Bar Converter -->
+  <div class="converter">
+    <h2>PSIA to Bar Converter</h2>
+    <div class="input-pair">
+      <div class="input-box">
+        <input type="number" id="psia" placeholder="PSIA" oninput="psiaToBar()">
+        <div class="unit-label">PSIA</div>
+      </div>
+      <div class="input-box">
+        <input type="number" id="bar" placeholder="Bar" oninput="barToPsia()">
+        <div class="unit-label">Bar</div>
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-function convertInchMM(from) {
-  const inchField = document.getElementById('inch');
-  const mmField = document.getElementById('mm');
-  if (from === 'inch') {
-    mmField.value = (parseFloat(inchField.value) * 25.4).toFixed(3);
-  } else if (from === 'mm') {
-    inchField.value = (parseFloat(mmField.value) / 25.4).toFixed(3);
-  }
-}
+  <script>
+    function inchToMm() {
+      const inch = parseFloat(document.getElementById("inch").value);
+      document.getElementById("mm").value = inch ? (inch * 25.4).toFixed(4) : '';
+    }
 
-function convertPressure(from) {
-  const psiaField = document.getElementById('psia');
-  const barField = document.getElementById('bar');
-  if (from === 'psia') {
-    barField.value = (parseFloat(psiaField.value) * 0.0689476).toFixed(3);
-  } else if (from === 'bar') {
-    psiaField.value = (parseFloat(barField.value) / 0.0689476).toFixed(3);
-  }
-}
-</script>
+    function mmToInch() {
+      const mm = parseFloat(document.getElementById("mm").value);
+      document.getElementById("inch").value = mm ? (mm / 25.4).toFixed(4) : '';
+    }
+
+    function psiaToBar() {
+      const psia = parseFloat(document.getElementById("psia").value);
+      document.getElementById("bar").value = psia ? (psia * 0.0689476).toFixed(4) : '';
+    }
+
+    function barToPsia() {
+      const bar = parseFloat(document.getElementById("bar").value);
+      document.getElementById("psia").value = bar ? (bar / 0.0689476).toFixed(4) : '';
+    }
+  </script>
+
+</body>
+</html>
