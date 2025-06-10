@@ -140,4 +140,61 @@
     function fromPsia() {
       const psia = parseFloat(document.getElementById("psia").value);
       if (!isNaN(psia)) {
-        document.
+        document.getElementById("bar").value = (psia * 0.0689476).toFixed(4);
+        document.getElementById("kpa").value = (psia * 6.89476).toFixed(4);
+        document.getElementById("psig").value = (psia - 14.7).toFixed(4);
+      }
+    }
+    function fromBar() {
+      const bar = parseFloat(document.getElementById("bar").value);
+      if (!isNaN(bar)) {
+        document.getElementById("psia").value = (bar / 0.0689476).toFixed(4);
+        document.getElementById("kpa").value = (bar * 100).toFixed(4);
+        document.getElementById("psig").value = (bar / 0.0689476 - 14.7).toFixed(4);
+      }
+    }
+    function fromKpa() {
+      const kpa = parseFloat(document.getElementById("kpa").value);
+      if (!isNaN(kpa)) {
+        document.getElementById("psia").value = (kpa / 6.89476).toFixed(4);
+        document.getElementById("bar").value = (kpa / 100).toFixed(4);
+        document.getElementById("psig").value = (kpa / 6.89476 - 14.7).toFixed(4);
+      }
+    }
+    function fromPsig() {
+      const psig = parseFloat(document.getElementById("psig").value);
+      if (!isNaN(psig)) {
+        const psia = psig + 14.7;
+        document.getElementById("psia").value = psia.toFixed(4);
+        document.getElementById("bar").value = (psia * 0.0689476).toFixed(4);
+        document.getElementById("kpa").value = (psia * 6.89476).toFixed(4);
+      }
+    }
+
+    // --- Temperature ---
+    function fromCelsius() {
+      const c = parseFloat(document.getElementById("celsius").value);
+      if (!isNaN(c)) {
+        document.getElementById("fahrenheit").value = (c * 9 / 5 + 32).toFixed(2);
+        document.getElementById("kelvin").value = (c + 273.15).toFixed(2);
+      }
+    }
+    function fromFahrenheit() {
+      const f = parseFloat(document.getElementById("fahrenheit").value);
+      if (!isNaN(f)) {
+        const c = (f - 32) * 5 / 9;
+        document.getElementById("celsius").value = c.toFixed(2);
+        document.getElementById("kelvin").value = (c + 273.15).toFixed(2);
+      }
+    }
+    function fromKelvin() {
+      const k = parseFloat(document.getElementById("kelvin").value);
+      if (!isNaN(k)) {
+        const c = k - 273.15;
+        document.getElementById("celsius").value = c.toFixed(2);
+        document.getElementById("fahrenheit").value = (c * 9 / 5 + 32).toFixed(2);
+      }
+    }
+  </script>
+</body>
+</html>
