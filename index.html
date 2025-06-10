@@ -129,50 +129,50 @@
     function fromInch() {
       const inch = parseFloat(document.getElementById("inch").value);
       if (!isNaN(inch)) {
-        document.getElementById("mm").value = (inch * 25.4).toFixed(4);
-        document.getElementById("cm").value = (inch * 2.54).toFixed(4);
-        document.getElementById("m").value = (inch * 0.0254).toFixed(4);
-        document.getElementById("ft").value = (inch / 12).toFixed(4);
+        document.getElementById("mm").value = (inch * 25.4).toFixed(3);
+        document.getElementById("cm").value = (inch * 2.54).toFixed(3);
+        document.getElementById("m").value = (inch * 0.0254).toFixed(3);
+        document.getElementById("ft").value = (inch / 12).toFixed(3);
       }
     }
     function fromMm() {
       const mm = parseFloat(document.getElementById("mm").value);
       if (!isNaN(mm)) {
         const inch = mm / 25.4;
-        document.getElementById("inch").value = inch.toFixed(4);
-        document.getElementById("cm").value = (mm / 10).toFixed(4);
-        document.getElementById("m").value = (mm / 1000).toFixed(4);
-        document.getElementById("ft").value = (inch / 12).toFixed(4);
+        document.getElementById("inch").value = inch.toFixed(3);
+        document.getElementById("cm").value = (mm / 10).toFixed(3);
+        document.getElementById("m").value = (mm / 1000).toFixed(3);
+        document.getElementById("ft").value = (inch / 12).toFixed(3);
       }
     }
     function fromCm() {
       const cm = parseFloat(document.getElementById("cm").value);
       if (!isNaN(cm)) {
         const inch = cm / 2.54;
-        document.getElementById("inch").value = inch.toFixed(4);
-        document.getElementById("mm").value = (cm * 10).toFixed(4);
-        document.getElementById("m").value = (cm / 100).toFixed(4);
-        document.getElementById("ft").value = (inch / 12).toFixed(4);
+        document.getElementById("inch").value = inch.toFixed(3);
+        document.getElementById("mm").value = (cm * 10).toFixed(3);
+        document.getElementById("m").value = (cm / 100).toFixed(3);
+        document.getElementById("ft").value = (inch / 12).toFixed(3);
       }
     }
     function fromM() {
       const m = parseFloat(document.getElementById("m").value);
       if (!isNaN(m)) {
         const inch = m / 0.0254;
-        document.getElementById("inch").value = inch.toFixed(4);
-        document.getElementById("mm").value = (m * 1000).toFixed(4);
-        document.getElementById("cm").value = (m * 100).toFixed(4);
-        document.getElementById("ft").value = (inch / 12).toFixed(4);
+        document.getElementById("inch").value = inch.toFixed(3);
+        document.getElementById("mm").value = (m * 1000).toFixed(3);
+        document.getElementById("cm").value = (m * 100).toFixed(3);
+        document.getElementById("ft").value = (inch / 12).toFixed(3);
       }
     }
     function fromFt() {
       const ft = parseFloat(document.getElementById("ft").value);
       if (!isNaN(ft)) {
         const inch = ft * 12;
-        document.getElementById("inch").value = inch.toFixed(4);
-        document.getElementById("mm").value = (inch * 25.4).toFixed(4);
-        document.getElementById("cm").value = (inch * 2.54).toFixed(4);
-        document.getElementById("m").value = (inch * 0.0254).toFixed(4);
+        document.getElementById("inch").value = inch.toFixed(3);
+        document.getElementById("mm").value = (inch * 25.4).toFixed(3);
+        document.getElementById("cm").value = (inch * 2.54).toFixed(3);
+        document.getElementById("m").value = (inch * 0.0254).toFixed(3);
       }
     }
 
@@ -180,34 +180,34 @@
     function fromPsia() {
       const psia = parseFloat(document.getElementById("psia").value);
       if (!isNaN(psia)) {
-        document.getElementById("bar").value = (psia * 0.0689476).toFixed(4);
-        document.getElementById("kpa").value = (psia * 6.89476).toFixed(4);
-        document.getElementById("psig").value = (psia - 14.7).toFixed(4);
+        document.getElementById("bar").value = (psia * 0.0689476).toFixed(3);
+        document.getElementById("kpa").value = (psia * 6.89476).toFixed(3);
+        document.getElementById("psig").value = (psia - 14.7).toFixed(3);
       }
     }
     function fromBar() {
       const bar = parseFloat(document.getElementById("bar").value);
       if (!isNaN(bar)) {
-        document.getElementById("psia").value = (bar / 0.0689476).toFixed(4);
-        document.getElementById("kpa").value = (bar * 100).toFixed(4);
-        document.getElementById("psig").value = (bar / 0.0689476 - 14.7).toFixed(4);
+        document.getElementById("psia").value = (bar / 0.0689476).toFixed(3);
+        document.getElementById("kpa").value = (bar * 100).toFixed(3);
+        document.getElementById("psig").value = (bar / 0.0689476 - 14.7).toFixed(3);
       }
     }
     function fromKpa() {
       const kpa = parseFloat(document.getElementById("kpa").value);
       if (!isNaN(kpa)) {
-        document.getElementById("psia").value = (kpa / 6.89476).toFixed(4);
-        document.getElementById("bar").value = (kpa / 100).toFixed(4);
-        document.getElementById("psig").value = (kpa / 6.89476 - 14.7).toFixed(4);
+        document.getElementById("psia").value = (kpa / 6.89476).toFixed(3);
+        document.getElementById("bar").value = (kpa / 100).toFixed(3);
+        document.getElementById("psig").value = (kpa / 6.89476 - 14.7).toFixed(3);
       }
     }
     function fromPsig() {
       const psig = parseFloat(document.getElementById("psig").value);
       if (!isNaN(psig)) {
         const psia = psig + 14.7;
-        document.getElementById("psia").value = psia.toFixed(4);
-        document.getElementById("bar").value = (psia * 0.0689476).toFixed(4);
-        document.getElementById("kpa").value = (psia * 6.89476).toFixed(4);
+        document.getElementById("psia").value = psia.toFixed(3);
+        document.getElementById("bar").value = (psia * 0.0689476).toFixed(3);
+        document.getElementById("kpa").value = (psia * 6.89476).toFixed(3);
       }
     }
 
@@ -215,24 +215,24 @@
     function fromCelsius() {
       const c = parseFloat(document.getElementById("celsius").value);
       if (!isNaN(c)) {
-        document.getElementById("fahrenheit").value = (c * 9 / 5 + 32).toFixed(2);
-        document.getElementById("kelvin").value = (c + 273.15).toFixed(2);
+        document.getElementById("fahrenheit").value = (c * 9 / 5 + 32).toFixed(3);
+        document.getElementById("kelvin").value = (c + 273.15).toFixed(3);
       }
     }
     function fromFahrenheit() {
       const f = parseFloat(document.getElementById("fahrenheit").value);
       if (!isNaN(f)) {
         const c = (f - 32) * 5 / 9;
-        document.getElementById("celsius").value = c.toFixed(2);
-        document.getElementById("kelvin").value = (c + 273.15).toFixed(2);
+        document.getElementById("celsius").value = c.toFixed(3);
+        document.getElementById("kelvin").value = (c + 273.15).toFixed(3);
       }
     }
     function fromKelvin() {
       const k = parseFloat(document.getElementById("kelvin").value);
       if (!isNaN(k)) {
         const c = k - 273.15;
-        document.getElementById("celsius").value = c.toFixed(2);
-        document.getElementById("fahrenheit").value = (c * 9 / 5 + 32).toFixed(2);
+        document.getElementById("celsius").value = c.toFixed(3);
+        document.getElementById("fahrenheit").value = (c * 9 / 5 + 32).toFixed(3);
       }
     }
 
@@ -246,7 +246,7 @@ function calculateDewPoint() {
     const a = 17.27, b = 237.7;
     const alpha = ((a * T) / (b + T)) + Math.log(RH / 100);
     const dew = (b * alpha) / (a - alpha);
-    document.getElementById("dewPoint").value = dew.toFixed(2);
+    document.getElementById("dewPoint").value = dew.toFixed(3);
   }
 }
 
@@ -259,12 +259,12 @@ function calculateAirTempOrRH() {
   if (!isNaN(T) && !isNaN(dew)) {
     const alpha = (a * T) / (b + T);
     const RHcalc = 100 * Math.exp((a * dew) / (b + dew) - alpha);
-    document.getElementById("humidity").value = RHcalc.toFixed(2);
+    document.getElementById("humidity").value = RHcalc.toFixed(3);
   } else if (!isNaN(dew) && !isNaN(RH)) {
     const alpha = ((a * dew) / (b + dew));
     const beta = alpha - Math.log(RH / 100);
     const Tcalc = (b * beta) / (a - beta);
-    document.getElementById("airTemp").value = Tcalc.toFixed(2);
+    document.getElementById("airTemp").value = Tcalc.toFixed(3);
   }
 }
 
