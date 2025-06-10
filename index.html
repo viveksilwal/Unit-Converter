@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Inch to Millimeter Converter</title>
+  <style>
+    body { font-family: Arial; margin: 20px; }
+    .converter { display: flex; gap: 20px; }
+    .box { display: flex; flex-direction: column; width: 150px; }
+    input { padding: 8px; font-size: 16px; }
+    label { margin-top: 5px; text-align: center; }
+  </style>
+</head>
+<body>
+  <h2>Inch ⇄ mm Converter</h2>
+  <div class="converter">
+    <div class="box">
+      <input type="number" id="inch" placeholder="Inches" oninput="inchToMm()">
+      <label>inches</label>
+    </div>
+    <div class="box">
+      <input type="number" id="mm" placeholder="Millimeters" oninput="mmToInch()">
+      <label>millimeters</label>
+    </div>
+  </div>
+
+  <script>
+    function inchToMm() {
+      const inch = parseFloat(document.getElementById("inch").value);
+      document.getElementById("mm").value = isNaN(inch) ? "" : (inch * 25.4).toFixed(2);
+    }
+
+    function mmToInch() {
+      const mm = parseFloat(document.getElementById("mm").value);
+      document.getElementById("inch").value = isNaN(mm) ? "" : (mm / 25.4).toFixed(4);
+    }
+  </script>
+</body>
+</html>
