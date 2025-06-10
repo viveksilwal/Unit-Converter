@@ -45,7 +45,7 @@
       </div>
       <div class="input-box">
         <input type="number" id="mm" placeholder="Millimeters" oninput="mmToInch()">
-        <div class="unit-label">Millimeters</div>
+        <div class="unit-label">mm</div>
       </div>
     </div>
   </div>
@@ -61,6 +61,21 @@
       <div class="input-box">
         <input type="number" id="bar" placeholder="Bar" oninput="barToPsia()">
         <div class="unit-label">Bar</div>
+      </div>
+    </div>
+  </div>
+
+   <!-- Celcius to Farhenheit Converter -->
+  <div class="converter">
+    <h2>Celcius to Farhenheit Converter</h2>
+    <div class="input-pair">
+      <div class="input-box">
+        <input type="number" id="celcius" placeholder="Celcius" oninput="cToF()">
+        <div class="unit-label">°C</div>
+      </div>
+      <div class="input-box">
+        <input type="number" id="farhenheit" placeholder="Farhenheit" oninput="fToC()">
+        <div class="unit-label">°F</div>
       </div>
     </div>
   </div>
@@ -84,6 +99,15 @@
     function barToPsia() {
       const bar = parseFloat(document.getElementById("bar").value);
       document.getElementById("psia").value = bar ? (bar / 0.0689476).toFixed(4) : '';
+    }
+
+    function cToF() {
+      const c = parseFloat(document.getElementById('celsius').value);
+      document.getElementById('fahrenheit').value = isNaN(c) ? '' : (c * 9/5 + 32).toFixed(4);
+    }
+    function fToC() {
+      const f = parseFloat(document.getElementById('fahrenheit').value);
+      document.getElementById('celsius').value = isNaN(f) ? '' : ((f - 32) * 5/9).toFixed(4);
     }
   </script>
 
