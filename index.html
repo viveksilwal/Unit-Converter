@@ -36,3 +36,28 @@
   </script>
 </body>
 </html>
+
+<hr>
+<h2>PSIA to Bar Converter</h2>
+<div style="display: flex; gap: 10px;">
+  <div>
+    <input type="number" id="psia" placeholder="PSIA" oninput="convertToBar()" style="width: 100px;">
+    <div style="font-size: 0.9em;">PSIA</div>
+  </div>
+  <div>
+    <input type="number" id="bar" placeholder="Bar" oninput="convertToPsia()" style="width: 100px;">
+    <div style="font-size: 0.9em;">Bar</div>
+  </div>
+</div>
+
+<script>
+  function convertToBar() {
+    const psia = parseFloat(document.getElementById('psia').value);
+    document.getElementById('bar').value = psia ? (psia * 0.0689476).toFixed(4) : '';
+  }
+
+  function convertToPsia() {
+    const bar = parseFloat(document.getElementById('bar').value);
+    document.getElementById('psia').value = bar ? (bar / 0.0689476).toFixed(4) : '';
+  }
+</script>
