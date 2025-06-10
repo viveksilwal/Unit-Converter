@@ -11,8 +11,9 @@
     .converter {
       margin-bottom: 40px;
     }
-    .input-pair {
+    .input-row {
       display: flex;
+      flex-wrap: wrap;
       gap: 20px;
       align-items: flex-end;
       margin-top: 10px;
@@ -35,82 +36,108 @@
 </head>
 <body>
 
-  <!-- Inch to Millimeter Converter -->
+  <!-- Length Conversion Row -->
   <div class="converter">
-    <h2>Inch to Millimeter</h2>
-    <div class="input-pair">
+    <h2>Length Converter</h2>
+    <div class="input-row">
       <div class="input-box">
-        <input type="text" inputmode="decimal" pattern="^-?\d*\.?\d*$" id="inch" placeholder="Inches" oninput="inchToMm()">
+        <input type="text" inputmode="decimal" pattern="^-?\d*\.?\d*$" id="inch" placeholder="Inches" oninput="fromInch()">
         <div class="unit-label">Inches</div>
       </div>
       <div class="input-box">
-        <input type="text" inputmode="decimal" pattern="^-?\d*\.?\d*$" id="mm" placeholder="Millimeters" oninput="mmToInch()">
+        <input type="text" inputmode="decimal" pattern="^-?\d*\.?\d*$" id="mm" placeholder="Millimeters" oninput="fromMm()">
         <div class="unit-label">mm</div>
+      </div>
+      <div class="input-box">
+        <input type="text" inputmode="decimal" pattern="^-?\d*\.?\d*$" id="cm" placeholder="Centimeters" oninput="fromCm()">
+        <div class="unit-label">cm</div>
+      </div>
+      <div class="input-box">
+        <input type="text" inputmode="decimal" pattern="^-?\d*\.?\d*$" id="m" placeholder="Meters" oninput="fromM()">
+        <div class="unit-label">m</div>
       </div>
     </div>
   </div>
 
-  <!-- PSIA to Bar Converter -->
+  <!-- Pressure Conversion Row -->
   <div class="converter">
-    <h2>PSIA to Bar</h2>
-    <div class="input-pair">
+    <h2>Pressure Converter</h2>
+    <div class="input-row">
       <div class="input-box">
-        <input type="text" inputmode="decimal" pattern="^-?\d*\.?\d*$" id="psia" placeholder="PSIA" oninput="psiaToBar()">
+        <input type="text" inputmode="decimal" pattern="^-?\d*\.?\d*$" id="psia" placeholder="PSIA" oninput="fromPsia()">
         <div class="unit-label">PSIA</div>
       </div>
       <div class="input-box">
-        <input type="text" inputmode="decimal" pattern="^-?\d*\.?\d*$" id="bar" placeholder="Bar" oninput="barToPsia()">
+        <input type="text" inputmode="decimal" pattern="^-?\d*\.?\d*$" id="bar" placeholder="Bar" oninput="fromBar()">
         <div class="unit-label">Bar</div>
+      </div>
+      <div class="input-box">
+        <input type="text" inputmode="decimal" pattern="^-?\d*\.?\d*$" id="kpa" placeholder="kPa" oninput="fromKpa()">
+        <div class="unit-label">kPa</div>
+      </div>
+      <div class="input-box">
+        <input type="text" inputmode="decimal" pattern="^-?\d*\.?\d*$" id="psig" placeholder="PSIG" oninput="fromPsig()">
+        <div class="unit-label">PSIG</div>
       </div>
     </div>
   </div>
 
-  <!-- Celsius to Fahrenheit Converter -->
+  <!-- Temperature Conversion Row -->
   <div class="converter">
-    <h2>Celsius to Fahrenheit</h2>
-    <div class="input-pair">
+    <h2>Temperature Converter</h2>
+    <div class="input-row">
       <div class="input-box">
-        <input type="text" inputmode="decimal" pattern="^-?\d*\.?\d*$" id="celsius" placeholder="Celsius" oninput="cToF()">
+        <input type="text" inputmode="decimal" pattern="^-?\d*\.?\d*$" id="celsius" placeholder="Celsius" oninput="fromCelsius()">
         <div class="unit-label">°C</div>
       </div>
       <div class="input-box">
-        <input type="text" inputmode="decimal" pattern="^-?\d*\.?\d*$" id="farhenheit" placeholder="Fahrenheit" oninput="fToC()">
+        <input type="text" inputmode="decimal" pattern="^-?\d*\.?\d*$" id="fahrenheit" placeholder="Fahrenheit" oninput="fromFahrenheit()">
         <div class="unit-label">°F</div>
+      </div>
+      <div class="input-box">
+        <input type="text" inputmode="decimal" pattern="^-?\d*\.?\d*$" id="kelvin" placeholder="Kelvin" oninput="fromKelvin()">
+        <div class="unit-label">K</div>
       </div>
     </div>
   </div>
 
   <script>
-    function inchToMm() {
+    // --- Length ---
+    function fromInch() {
       const inch = parseFloat(document.getElementById("inch").value);
-      document.getElementById("mm").value = !isNaN(inch) ? (inch * 25.4).toFixed(4) : '';
+      if (!isNaN(inch)) {
+        document.getElementById("mm").value = (inch * 25.4).toFixed(4);
+        document.getElementById("cm").value = (inch * 2.54).toFixed(4);
+        document.getElementById("m").value = (inch * 0.0254).toFixed(4);
+      }
     }
-
-    function mmToInch() {
+    function fromMm() {
       const mm = parseFloat(document.getElementById("mm").value);
-      document.getElementById("inch").value = !isNaN(mm) ? (mm / 25.4).toFixed(4) : '';
+      if (!isNaN(mm)) {
+        document.getElementById("inch").value = (mm / 25.4).toFixed(4);
+        document.getElementById("cm").value = (mm / 10).toFixed(4);
+        document.getElementById("m").value = (mm / 1000).toFixed(4);
+      }
+    }
+    function fromCm() {
+      const cm = parseFloat(document.getElementById("cm").value);
+      if (!isNaN(cm)) {
+        document.getElementById("inch").value = (cm / 2.54).toFixed(4);
+        document.getElementById("mm").value = (cm * 10).toFixed(4);
+        document.getElementById("m").value = (cm / 100).toFixed(4);
+      }
+    }
+    function fromM() {
+      const m = parseFloat(document.getElementById("m").value);
+      if (!isNaN(m)) {
+        document.getElementById("inch").value = (m / 0.0254).toFixed(4);
+        document.getElementById("mm").value = (m * 1000).toFixed(4);
+        document.getElementById("cm").value = (m * 100).toFixed(4);
+      }
     }
 
-    function psiaToBar() {
+    // --- Pressure ---
+    function fromPsia() {
       const psia = parseFloat(document.getElementById("psia").value);
-      document.getElementById("bar").value = !isNaN(psia) ? (psia * 0.0689476).toFixed(4) : '';
-    }
-
-    function barToPsia() {
-      const bar = parseFloat(document.getElementById("bar").value);
-      document.getElementById("psia").value = !isNaN(bar) ? (bar / 0.0689476).toFixed(4) : '';
-    }
-
-    function cToF() {
-      const c = parseFloat(document.getElementById("celsius").value);
-      document.getElementById("farhenheit").value = !isNaN(c) ? (c * 9/5 + 32).toFixed(4) : '';
-    }
-
-    function fToC() {
-      const f = parseFloat(document.getElementById("farhenheit").value);
-      document.getElementById("celsius").value = !isNaN(f) ? ((f - 32) * 5/9).toFixed(4) : '';
-    }
-  </script>
-
-</body>
-</html>
+      if (!isNaN(psia)) {
+        document.
