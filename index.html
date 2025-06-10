@@ -41,20 +41,24 @@
     <h2>Length Converter</h2>
     <div class="input-row">
       <div class="input-box">
-        <input type="text" inputmode="decimal" pattern="^-?\d*\.?\d*$" id="inch" placeholder="Inches" oninput="fromInch()">
+        <input type="text" id="inch" placeholder="Inches" oninput="fromInch()">
         <div class="unit-label">Inches</div>
       </div>
       <div class="input-box">
-        <input type="text" inputmode="decimal" pattern="^-?\d*\.?\d*$" id="mm" placeholder="Millimeters" oninput="fromMm()">
+        <input type="text" id="mm" placeholder="Millimeters" oninput="fromMm()">
         <div class="unit-label">mm</div>
       </div>
       <div class="input-box">
-        <input type="text" inputmode="decimal" pattern="^-?\d*\.?\d*$" id="cm" placeholder="Centimeters" oninput="fromCm()">
+        <input type="text" id="cm" placeholder="Centimeters" oninput="fromCm()">
         <div class="unit-label">cm</div>
       </div>
       <div class="input-box">
-        <input type="text" inputmode="decimal" pattern="^-?\d*\.?\d*$" id="m" placeholder="Meters" oninput="fromM()">
+        <input type="text" id="m" placeholder="Meters" oninput="fromM()">
         <div class="unit-label">m</div>
+      </div>
+      <div class="input-box">
+        <input type="text" id="ft" placeholder="Feet" oninput="fromFt()">
+        <div class="unit-label">ft</div>
       </div>
     </div>
   </div>
@@ -101,6 +105,25 @@
     </div>
   </div>
 
+  <!-- Dew Point Calculator -->
+  <div class="converter">
+    <h2>Dew Point Calculator</h2>
+    <div class="input-row">
+      <div class="input-box">
+        <input type="text" id="airTemp" placeholder="Air Temp (°C)" oninput="calculateDewPoint()">
+        <div class="unit-label">Air Temp (°C)</div>
+      </div>
+      <div class="input-box">
+        <input type="text" id="relHumidity" placeholder="Relative Humidity (%)" oninput="calculateDewPoint()">
+        <div class="unit-label">RH (%)</div>
+      </div>
+      <div class="input-box">
+        <input type="text" id="dewPoint" placeholder="Dew Point (°C)" readonly>
+        <div class="unit-label">Dew Point (°C)</div>
+      </div>
+    </div>
+  </div>
+
   <script>
     // --- Length ---
     function fromInch() {
@@ -109,30 +132,47 @@
         document.getElementById("mm").value = (inch * 25.4).toFixed(4);
         document.getElementById("cm").value = (inch * 2.54).toFixed(4);
         document.getElementById("m").value = (inch * 0.0254).toFixed(4);
+        document.getElementById("ft").value = (inch / 12).toFixed(4);
       }
     }
     function fromMm() {
       const mm = parseFloat(document.getElementById("mm").value);
       if (!isNaN(mm)) {
-        document.getElementById("inch").value = (mm / 25.4).toFixed(4);
+        const inch = mm / 25.4;
+        document.getElementById("inch").value = inch.toFixed(4);
         document.getElementById("cm").value = (mm / 10).toFixed(4);
         document.getElementById("m").value = (mm / 1000).toFixed(4);
+        document.getElementById("ft").value = (inch / 12).toFixed(4);
       }
     }
     function fromCm() {
       const cm = parseFloat(document.getElementById("cm").value);
       if (!isNaN(cm)) {
-        document.getElementById("inch").value = (cm / 2.54).toFixed(4);
+        const inch = cm / 2.54;
+        document.getElementById("inch").value = inch.toFixed(4);
         document.getElementById("mm").value = (cm * 10).toFixed(4);
         document.getElementById("m").value = (cm / 100).toFixed(4);
+        document.getElementById("ft").value = (inch / 12).toFixed(4);
       }
     }
     function fromM() {
       const m = parseFloat(document.getElementById("m").value);
       if (!isNaN(m)) {
-        document.getElementById("inch").value = (m / 0.0254).toFixed(4);
+        const inch = m / 0.0254;
+        document.getElementById("inch").value = inch.toFixed(4);
         document.getElementById("mm").value = (m * 1000).toFixed(4);
         document.getElementById("cm").value = (m * 100).toFixed(4);
+        document.getElementById("ft").value = (inch / 12).toFixed(4);
+      }
+    }
+    function fromFt() {
+      const ft = parseFloat(document.getElementById("ft").value);
+      if (!isNaN(ft)) {
+        const inch = ft * 12;
+        document.getElementById("inch").value = inch.toFixed(4);
+        document.getElementById("mm").value = (inch * 25.4).toFixed(4);
+        document.getElementById("cm").value = (inch * 2.54).toFixed(4);
+        document.getElementById("m").value = (inch * 0.0254).toFixed(4);
       }
     }
 
@@ -193,6 +233,21 @@
         const c = k - 273.15;
         document.getElementById("celsius").value = c.toFixed(2);
         document.getElementById("fahrenheit").value = (c * 9 / 5 + 32).toFixed(2);
+      }
+    }
+    
+    // --- Dew Point Calculation ---
+    function calculateDewPoint() {
+      const t = parseFloat(document.getElementById("airTemp").value);
+      const rh = parseFloat(document.getElementById("relHumidity").value);
+      if (!isNaN(t) && !isNaN(rh) && rh > 0 && rh <= 100) {
+        // Magnus formula
+        const a = 17.62, b = 243.12;
+        const gamma = Math.log(rh / 100) + (a * t) / (b + t);
+        const dew = (b * gamma) / (a - gamma);
+        document.getElementById("dewPoint").value = dew.toFixed(2);
+      } else {
+        document.getElementById("dewPoint").value = '';
       }
     }
   </script>
