@@ -37,7 +37,7 @@
 
   <!-- Inch to Millimeter Converter -->
   <div class="converter">
-    <h2>Inch to Millimeter Converter</h2>
+    <h2>Inch to Millimeter</h2>
     <div class="input-pair">
       <div class="input-box">
         <input type="number" id="inch" placeholder="Inches" oninput="inchToMm()">
@@ -52,7 +52,7 @@
 
   <!-- PSIA to Bar Converter -->
   <div class="converter">
-    <h2>PSIA to Bar Converter</h2>
+    <h2>PSIA to Bar</h2>
     <div class="input-pair">
       <div class="input-box">
         <input type="number" id="psia" placeholder="PSIA" oninput="psiaToBar()">
@@ -67,7 +67,7 @@
 
    <!-- Celsius to Farhenheit Converter -->
   <div class="converter">
-    <h2>Celsius to Farhenheit Converter</h2>
+    <h2>Celsius to Farhenheit</h2>
     <div class="input-pair">
       <div class="input-box">
         <input type="number" id="celsius" placeholder="Celsius" oninput="cToF()">
@@ -83,31 +83,31 @@
   <script>
     function inchToMm() {
       const inch = parseFloat(document.getElementById("inch").value);
-      document.getElementById("mm").value = inch ? (inch * 25.4).toFixed(4) : '';
+      document.getElementById("mm").value = !isNaN(inch) ? (inch * 25.4).toFixed(4) : '';
     }
 
     function mmToInch() {
       const mm = parseFloat(document.getElementById("mm").value);
-      document.getElementById("inch").value = mm ? (mm / 25.4).toFixed(4) : '';
+      document.getElementById("inch").value = !isNaN(mm) ? (mm / 25.4).toFixed(4) : '';
     }
 
     function psiaToBar() {
       const psia = parseFloat(document.getElementById("psia").value);
-      document.getElementById("bar").value = psia ? (psia * 0.0689476).toFixed(4) : '';
+      document.getElementById("bar").value = !isNaN(psia) ? (psia * 0.0689476).toFixed(4) : '';
     }
 
     function barToPsia() {
       const bar = parseFloat(document.getElementById("bar").value);
-      document.getElementById("psia").value = bar ? (bar / 0.0689476).toFixed(4) : '';
+      document.getElementById("psia").value = !isNaN(bar) ? (bar / 0.0689476).toFixed(4) : '';
     }
 
     function cToF() {
       const c = parseFloat(document.getElementById("celsius").value);
-      document.getElementById("farhenheit").value = c ? (c * 9/5 + 32).toFixed(4) : '';
+      document.getElementById("farhenheit").value = !isNaN(c) ? (c * 9/5 + 32).toFixed(4) : '';
     }
     function fToC() {
       const f = parseFloat(document.getElementById("farhenheit").value);
-      document.getElementById("celsius").value = f ? ((f - 32) * 5/9).toFixed(4) : '';
+      document.getElementById("celsius").value = !isNaN(f) ? ((f - 32) * 5/9).toFixed(4) : '';
     }
   </script>
 
