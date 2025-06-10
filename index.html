@@ -102,11 +102,11 @@
     }
 
     function cToF() {
-      const c = parseFloat(document.getElementById('celsius').value);
+      const c = parseFloat(document.getElementById("celsius").value);
       document.getElementById("fahrenheit").value = c ? (c * 9/5 + 32).toFixed(4) : '';
     }
     function fToC() {
-      const f = parseFloat(document.getElementById('fahrenheit').value);
+      const f = parseFloat(document.getElementById("fahrenheit").value);
       document.getElementById("celsius").value = f ? ((f - 32) * 5/9).toFixed(4) : '';
     }
   </script>
