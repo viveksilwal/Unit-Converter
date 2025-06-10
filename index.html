@@ -38,7 +38,7 @@
 
   <!-- Length Conversion Row -->
   <div class="converter">
-    <h2>Length Converter</h2>
+    <h2>Length</h2>
     <div class="input-row">
       <div class="input-box">
         <input type="text" id="inch" placeholder="Inches" oninput="fromInch()">
@@ -65,7 +65,7 @@
 
   <!-- Pressure Conversion Row -->
   <div class="converter">
-    <h2>Pressure Converter</h2>
+    <h2>Pressure</h2>
     <div class="input-row">
       <div class="input-box">
         <input type="text" inputmode="decimal" pattern="^-?\d*\.?\d*$" id="psia" placeholder="PSIA" oninput="fromPsia()">
@@ -88,7 +88,7 @@
 
   <!-- Temperature Conversion Row -->
   <div class="converter">
-    <h2>Temperature Converter</h2>
+    <h2>Temperature</h2>
     <div class="input-row">
       <div class="input-box">
         <input type="text" inputmode="decimal" pattern="^-?\d*\.?\d*$" id="celsius" placeholder="Celsius" oninput="fromCelsius()">
@@ -105,24 +105,24 @@
     </div>
   </div>
 
-  <!-- Dew Point Calculator -->
-  <div class="converter">
-    <h2>Dew Point Calculator</h2>
-    <div class="input-row">
-      <div class="input-box">
-        <input type="text" id="airTemp" placeholder="Air Temp (°C)" oninput="calculateDewPoint()">
-        <div class="unit-label">Air Temp (°C)</div>
-      </div>
-      <div class="input-box">
-        <input type="text" id="relHumidity" placeholder="Relative Humidity (%)" oninput="calculateDewPoint()">
-        <div class="unit-label">RH (%)</div>
-      </div>
-      <div class="input-box">
-        <input type="text" id="dewPoint" placeholder="Dew Point (°C)" readonly>
-        <div class="unit-label">Dew Point (°C)</div>
-      </div>
+  <!-- Dew Point Calculator Row -->
+<div class="converter">
+  <h2>Dew Point</h2>
+  <div class="input-row">
+    <div class="input-box">
+      <input type="text" id="airTemp" placeholder="Air Temp (°C)" oninput="calculateDewPoint()">
+      <div class="unit-label">Air Temp (°C)</div>
+    </div>
+    <div class="input-box">
+      <input type="text" id="humidity" placeholder="Relative Humidity (%)" oninput="calculateDewPoint()">
+      <div class="unit-label">Relative Humidity (%)</div>
+    </div>
+    <div class="input-box">
+      <input type="text" id="dewPoint" placeholder="Dew Point (°C)" oninput="calculateAirTempOrRH()">
+      <div class="unit-label">Dew Point (°C)</div>
     </div>
   </div>
+</div>
 
   <script>
     // --- Length ---
@@ -235,21 +235,39 @@
         document.getElementById("fahrenheit").value = (c * 9 / 5 + 32).toFixed(2);
       }
     }
+
     
     // --- Dew Point Calculation ---
-    function calculateDewPoint() {
-      const t = parseFloat(document.getElementById("airTemp").value);
-      const rh = parseFloat(document.getElementById("relHumidity").value);
-      if (!isNaN(t) && !isNaN(rh) && rh > 0 && rh <= 100) {
-        // Magnus formula
-        const a = 17.62, b = 243.12;
-        const gamma = Math.log(rh / 100) + (a * t) / (b + t);
-        const dew = (b * gamma) / (a - gamma);
-        document.getElementById("dewPoint").value = dew.toFixed(2);
-      } else {
-        document.getElementById("dewPoint").value = '';
-      }
-    }
+function calculateDewPoint() {
+  const T = parseFloat(document.getElementById("airTemp").value);
+  const RH = parseFloat(document.getElementById("humidity").value);
+
+  if (!isNaN(T) && !isNaN(RH)) {
+    const a = 17.27, b = 237.7;
+    const alpha = ((a * T) / (b + T)) + Math.log(RH / 100);
+    const dew = (b * alpha) / (a - alpha);
+    document.getElementById("dewPoint").value = dew.toFixed(2);
+  }
+}
+
+function calculateAirTempOrRH() {
+  const dew = parseFloat(document.getElementById("dewPoint").value);
+  const T = parseFloat(document.getElementById("airTemp").value);
+  const RH = parseFloat(document.getElementById("humidity").value);
+  const a = 17.27, b = 237.7;
+
+  if (!isNaN(T) && !isNaN(dew)) {
+    const alpha = (a * T) / (b + T);
+    const RHcalc = 100 * Math.exp((a * dew) / (b + dew) - alpha);
+    document.getElementById("humidity").value = RHcalc.toFixed(2);
+  } else if (!isNaN(dew) && !isNaN(RH)) {
+    const alpha = ((a * dew) / (b + dew));
+    const beta = alpha - Math.log(RH / 100);
+    const Tcalc = (b * beta) / (a - beta);
+    document.getElementById("airTemp").value = Tcalc.toFixed(2);
+  }
+}
+
   </script>
 </body>
 </html>
