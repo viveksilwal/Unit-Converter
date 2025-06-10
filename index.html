@@ -63,6 +63,63 @@
     </div>
   </div>
 
+  <!-- Mass Conversion Row -->
+  <div class="converter">
+    <h2>Mass</h2>
+    <div class="input-row">
+      <div class="input-box">
+        <input type="text" id="kg" placeholder="Kilograms" oninput="fromKg()">
+        <div class="unit-label">kg</div>
+      </div>
+      <div class="input-box">
+        <input type="text" id="gram" placeholder="Grams" oninput="fromGram()">
+        <div class="unit-label">gram</div>
+      </div>
+      <div class="input-box">
+        <input type="text" id="lb" placeholder="Pounds" oninput="fromLb()">
+        <div class="unit-label">lb</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Volume Conversion Row -->
+  <div class="converter">
+    <h2>Volume</h2>
+    <div class="input-row">
+      <div class="input-box">
+        <input type="text" id="litre" placeholder="Litres" oninput="fromLitre()">
+        <div class="unit-label">Litre</div>
+      </div>
+      <div class="input-box">
+        <input type="text" id="cuft" placeholder="Cubic Feet" oninput="fromCuFt()">
+        <div class="unit-label">cu ft</div>
+      </div>
+      <div class="input-box">
+        <input type="text" id="gallon" placeholder="Gallons" oninput="fromGallon()">
+        <div class="unit-label">gallon</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Energy Conversion Row -->
+  <div class="converter">
+    <h2>Energy</h2>
+    <div class="input-row">
+      <div class="input-box">
+        <input type="text" id="watts" placeholder="Watts" oninput="fromWatts()">
+        <div class="unit-label">Watts</div>
+      </div>
+      <div class="input-box">
+        <input type="text" id="btuhr" placeholder="Btu/hr" oninput="fromBtuHr()">
+        <div class="unit-label">Btu/hr</div>
+      </div>
+      <div class="input-box">
+        <input type="text" id="kwhday" placeholder="KWh/day" oninput="fromKwhDay()">
+        <div class="unit-label">KWh/day</div>
+      </div>
+    </div>
+  </div>
+
   <!-- Pressure Conversion Row -->
   <div class="converter">
     <h2>Pressure</h2>
@@ -176,6 +233,75 @@
       }
     }
 
+    // --- Mass ---
+    function fromKg() {
+      const kg = parseFloat(document.getElementById("kg").value);
+      if (!isNaN(kg)) {
+        document.getElementById("gram").value = (kg * 1000).toFixed(3);
+        document.getElementById("lb").value = (kg * 2.20462).toFixed(3);
+      }
+    }
+    function fromGram() {
+      const gram = parseFloat(document.getElementById("gram").value);
+      if (!isNaN(gram)) {
+        document.getElementById("kg").value = (gram / 1000).toFixed(3);
+        document.getElementById("lb").value = (gram * 0.00220462).toFixed(3);
+      }
+    }
+    function fromLb() {
+      const lb = parseFloat(document.getElementById("lb").value);
+      if (!isNaN(lb)) {
+        document.getElementById("kg").value = (lb / 2.20462).toFixed(3);
+        document.getElementById("gram").value = (lb / 0.00220462).toFixed(3);
+      }
+    }
+
+    // --- Volume ---
+    function fromLitre() {
+      const litre = parseFloat(document.getElementById("litre").value);
+      if (!isNaN(litre)) {
+        document.getElementById("cuft").value = (litre * 0.0353147).toFixed(3);
+        document.getElementById("gallon").value = (litre * 0.264172).toFixed(3);
+      }
+    }
+    function fromCuFt() {
+      const cuft = parseFloat(document.getElementById("cuft").value);
+      if (!isNaN(cuft)) {
+        document.getElementById("litre").value = (cuft / 0.0353147).toFixed(3);
+        document.getElementById("gallon").value = (cuft * 7.48052).toFixed(3);
+      }
+    }
+    function fromGallon() {
+      const gallon = parseFloat(document.getElementById("gallon").value);
+      if (!isNaN(gallon)) {
+        document.getElementById("litre").value = (gallon / 0.264172).toFixed(3);
+        document.getElementById("cuft").value = (gallon / 7.48052).toFixed(3);
+      }
+    }
+
+    // --- Energy ---
+    function fromWatts() {
+      const watts = parseFloat(document.getElementById("watts").value);
+      if (!isNaN(watts)) {
+        document.getElementById("btuhr").value = (watts * 3.41214).toFixed(3);
+        document.getElementById("kwhday").value = (watts * 24 / 1000).toFixed(3);
+      }
+    }
+    function fromBtuHr() {
+      const btuhr = parseFloat(document.getElementById("btuhr").value);
+      if (!isNaN(btuhr)) {
+        document.getElementById("watts").value = (btuhr / 3.41214).toFixed(3);
+        document.getElementById("kwhday").value = (btuhr / 3.41214 * 24 / 1000).toFixed(3);
+      }
+    }
+    function fromKwhDay() {
+      const kwhday = parseFloat(document.getElementById("kwhday").value);
+      if (!isNaN(kwhday)) {
+        document.getElementById("watts").value = (kwhday * 1000 / 24).toFixed(3);
+        document.getElementById("btuhr").value = (kwhday * 1000 / 24 * 3.41214).toFixed(3);
+      }
+    }
+
     // --- Pressure ---
     function fromPsia() {
       const psia = parseFloat(document.getElementById("psia").value);
@@ -242,7 +368,13 @@ function calculateDewPoint() {
   const T = parseFloat(document.getElementById("airTemp").value);
   const RH = parseFloat(document.getElementById("humidity").value);
 
-  if (!isNaN(T) && !isNaN(RH)) {
+  // Limit RH to maximum 100%
+  if (!isNaN(RH) && RH > 100) {
+    document.getElementById("humidity").value = "100";
+    return;
+  }
+
+  if (!isNaN(T) && !isNaN(RH) && RH >= 0 && RH <= 100) {
     const a = 17.27, b = 237.7;
     const alpha = ((a * T) / (b + T)) + Math.log(RH / 100);
     const dew = (b * alpha) / (a - alpha);
@@ -256,11 +388,16 @@ function calculateAirTempOrRH() {
   const RH = parseFloat(document.getElementById("humidity").value);
   const a = 17.27, b = 237.7;
 
+  // Case 1: Air temp and dew point known, calculate RH
   if (!isNaN(T) && !isNaN(dew)) {
     const alpha = (a * T) / (b + T);
     const RHcalc = 100 * Math.exp((a * dew) / (b + dew) - alpha);
-    document.getElementById("humidity").value = RHcalc.toFixed(3);
-  } else if (!isNaN(dew) && !isNaN(RH)) {
+    if (RHcalc <= 100) {
+      document.getElementById("humidity").value = RHcalc.toFixed(3);
+    }
+  } 
+  // Case 2: RH and dew point known, calculate air temp
+  else if (!isNaN(dew) && !isNaN(RH) && RH >= 0 && RH <= 100) {
     const alpha = ((a * dew) / (b + dew));
     const beta = alpha - Math.log(RH / 100);
     const Tcalc = (b * beta) / (a - beta);
